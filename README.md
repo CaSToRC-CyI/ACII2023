@@ -114,14 +114,3 @@ participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq
 Replace `folder_path` with your actual path.
 
 > Note: The **phase2** channel has been sampled at 125 Hz. In the above code, **phase2** has been rescaled to be 1000 Hz as the other columns. 
-
-
-
-| Plugin | README |
-| ------ | ------ |
-| Dropbox | [plugins/dropbox/README.md][PlDb] |
-| GitHub | [plugins/github/README.md][PlGh] |
-| Google Drive | [plugins/googledrive/README.md][PlGd] |
-| OneDrive | [plugins/onedrive/README.md][PlOd] |
-| Medium | [plugins/medium/README.md][PlMe] |
-| Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
