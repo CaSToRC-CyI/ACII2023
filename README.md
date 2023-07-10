@@ -11,43 +11,67 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 
 # Dataset Columns
 ## ACQ files
-0. Channel ECG
-1. Channel SCR
-2. Channel ORB
-3. Channel COR
-4. Channel ZYG
-5. Channel Sound
-6. Channel phase1
-7. Channel Arousal
-8. Channel Valence1
-9. Channel Valence2
-10. Channel Probe ON
-11. Channel Tone1
-12. Channel Tone2
-13. Channel phase2
-14. Channel ORB Filter
-15. Channel COR Filter
-16. Channel ZYG Filter
-17. Channel ECG BPM
-18. Channel Trial counter
-19. Channel ORB Int
-20. Channel COR Int
-21. Channel ZYG Int
-22. Channel ECG R-R
-23. Channel Pulse Rate
+0. Channel ECG:
+1. Channel SCR:
+2. Channel ORB:
+3. Channel COR:
+4. Channel ZYG:
+5. Channel Sound:
+6. Channel phase1:
+7. Channel Arousal:
+8. Channel Valence1:
+9. Channel Valence2:
+10. Channel Probe ON:
+11. Channel Tone1:
+12. Channel Tone2:
+13. Channel phase2:
+14. Channel ORB Filter:
+15. Channel COR Filter:
+16. Channel ZYG Filter:
+17. Channel ECG BPM:
+18. Channel Trial counter:
+19. Channel ORB Int:
+20. Channel COR Int:
+21. Channel ZYG Int:
+22. Channel ECG R-R:
+23. Channel Pulse Rate:
 
 We are interested into specific columns, therefore follow the instructions below to extract only the necessary data. 
 
+### Digital channels
+**Emotions**
+The relationship between arousal and valence can help interpret emotional states in the dataset. Based on the provided mappings, the following associations can be made:
+- When Arousal = 5 and Valence2 = 0, it corresponds to the emotion of Joy.
+- When Arousal = 0 and Valence2 = 0, it corresponds to a Neutral emotional state.
+- When Arousal = 5 and Valence2 = 5, it corresponds to the emotion of Fear.
+These mappings can provide insights into the emotional experiences represented in the dataset.
+
+**Phases**
+The data collection protocol consisted of three distinct phases: a 20-second baseline, a 60-second phase 1, and a 40-second phase 2. Each participant completed a total of 10 trials, resulting in a cumulative data duration of 1200 seconds for each participant.
+To identify and extract the relevant data for analysis, it is important to focus on the specific digital channels corresponding to the Baseline, Phase1, and Phase2 periods. The data collected between these phases should be disregarded as it does not pertain to the targeted experimental periods.
+By filtering the dataset using the digital channels associated with the Baseline, Phase1, and Phase2, you can ensure that only the desired segments of data are considered for further analysis.
+- When Phase1 = 0 and Phase2 = 0, it corresponds to the phase of _Baseline_.
+- When Phase1 = 5 and Phase2 = 0, it corresponds to the phase of _Phase1_.
+- When Phase1 = 0 and Phase2 = 5, it corresponds to the phase of _Phase2_.
+These mappings can provide insights into the phase of the experiment in the dataset.
+
+**Depth of processing**
+By filtering the dataset using the digital channels associated with the Tone1 and Tone2, you can ensure that only the desired segments of data are considered for further analysis.
+- When Tone1 = 5 and Tone2 = 0, it corresponds to the phase of _Shallow_.
+- When Tone1 = 0 and Tone2 = 5, it corresponds to the phase of _Deep_.
+These mappings can provide insights into the depth of processing of the experiment in the dataset.
+
+
 ## CSV file
 - id:
-- gender
-- age
-- TASDIF
-- TASDDF
-- TASEOT
-- TAStot
-- group
-- dataset
+- gender:
+- age:
+- TASDIF:
+- TASDDF:
+- TASEOT:
+- TAStot:
+- group:
+- dataset:
 
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
@@ -113,4 +137,6 @@ participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq
 ```
 Replace `folder_path` with your actual path.
 
-> Note: The **phase2** channel has been sampled at 125 Hz. In the above code, **phase2** has been rescaled to be 1000 Hz as the other columns. 
+> Note: The **phase2** channel has been sampled at 125 Hz. In the above code, **phase2** has been rescaled to be 1000 Hz as the other columns.
+
+
