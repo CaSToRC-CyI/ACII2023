@@ -12,7 +12,11 @@ csv_file = '/Users/user/Desktop/ACII2023_Datasets/alexithymia_demographics_info.
     
 #%%
 
+# ID would be the key column of the dictionary
 key_column = 'id'
-value_columns = ['group', 'dataset'] # Replace with your desired column names
 
+# Group and dataset labels would be the values of the dictionary
+value_columns = ['group', 'dataset'] 
+
+# Dictionary containing information for each participant
 info_dict = create_info_dictionary(csv_file, key_column, value_columns)
