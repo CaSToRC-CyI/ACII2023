@@ -154,4 +154,7 @@ Replace `folder_path` with your actual path.
 
 > Note: The **phase2** channel has been sampled at 125 Hz. In the above code, **phase2** has been rescaled to be 1000 Hz as the other columns.
 
+#### Step 3:
+Load data of all the participants and start your analysis
+
 
