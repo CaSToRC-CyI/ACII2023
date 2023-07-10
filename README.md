@@ -9,8 +9,6 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 - ACQ files: The datasets are stored in ACQ files, which are data graph files created by AcqKnowledge. Each ACQ file represents data for a single participant. These files contain the recorded physiological signals and various digital channels related to the state of the experiment.
 - Demographics CSV file: In addition to the ACQ files, a separate CSV file is available to access demographics information about the participants. This file provides details such as ID, age, gender, group label, etc. It complements the ACQ files by providing additional contextual information about the participants.
 
-1, 6, 7, 9, 11, 12, 13, 17, 19, 20, 21
-
 # Dataset Columns
 ## ACQ files
 0. Channel ECG: Ignore
