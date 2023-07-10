@@ -119,7 +119,7 @@ Structure of the _ACII2023_Datasets_ folder:
 #### Step 1:
 Read the csv file which contains the group label and the dataset label.
 ```py
-# Import librarires
+# Import libraries
 from acii2023_functions import create_info_dictionary
 
 # CSV file path
@@ -139,7 +139,7 @@ Replace `csv_file` with your actual csv path.
 #### Step 2:
 Load data of specific participant from dataset 1 with high alexithymia:. 
 ```py
-# Import librarires
+# Import libraries
 from acii2023_functions import read_acq_file, rescale
 
 # Folder path
