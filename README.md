@@ -48,7 +48,9 @@ These mappings can provide insights into the emotional experiences represented i
 
 **Phases**
 The data collection protocol consisted of three distinct phases: a 20-second baseline, a 60-second phase 1, and a 40-second phase 2. Each participant completed a total of 10 trials, resulting in a cumulative data duration of 1200 seconds for each participant.
+
 To identify and extract the relevant data for analysis, it is important to focus on the specific digital channels corresponding to the Baseline, Phase1, and Phase2 periods. The data collected between these phases should be disregarded as it does not pertain to the targeted experimental periods.
+
 By filtering the dataset using the digital channels associated with the Baseline, Phase1, and Phase2, you can ensure that only the desired segments of data are considered for further analysis.
 - When Phase1 = 0 and Phase2 = 0, it corresponds to the phase of _Baseline_.
 - When Phase1 = 5 and Phase2 = 0, it corresponds to the phase of _Phase1_.
@@ -80,6 +82,7 @@ These mappings can provide insights into the depth of processing of the experime
 git clone https://github.com/CaSToRC-CyI/ACII2023.git
 ```
 Replace `your-username` with your actual GitHub username.
+
 3. Navigate to the cloned repository on your local machine:
 ```sh
 cd ACII2023
