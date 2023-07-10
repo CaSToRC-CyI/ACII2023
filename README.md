@@ -44,6 +44,7 @@ The relationship between arousal and valence can help interpret emotional states
 - When Arousal = 5 and Valence2 = 0, it corresponds to the emotion of _Joy_.
 - When Arousal = 0 and Valence2 = 0, it corresponds to a _Neutral_ emotional state.
 - When Arousal = 5 and Valence2 = 5, it corresponds to the emotion of _Fear_.
+
 These mappings can provide insights into the emotional experiences represented in the dataset.
 
 **Phases**
@@ -55,14 +56,15 @@ By filtering the dataset using the digital channels associated with the Baseline
 - When Phase1 = 0 and Phase2 = 0, it corresponds to the phase of _Baseline_.
 - When Phase1 = 5 and Phase2 = 0, it corresponds to the phase of _Phase1_.
 - When Phase1 = 0 and Phase2 = 5, it corresponds to the phase of _Phase2_.
+
 These mappings can provide insights into the phase of the experiment in the dataset.
 
 **Depth of processing**
 By filtering the dataset using the digital channels associated with the Tone1 and Tone2, you can ensure that only the desired segments of data are considered for further analysis.
 - When Tone1 = 5 and Tone2 = 0, it corresponds to the phase of _Shallow_.
 - When Tone1 = 0 and Tone2 = 5, it corresponds to the phase of _Deep_.
-These mappings can provide insights into the depth of processing of the experiment in the dataset.
 
+These mappings can provide insights into the depth of processing of the experiment in the dataset.
 
 ## CSV file
 - id:
@@ -81,8 +83,6 @@ These mappings can provide insights into the depth of processing of the experime
 ```sh
 git clone https://github.com/CaSToRC-CyI/ACII2023.git
 ```
-Replace `your-username` with your actual GitHub username.
-
 3. Navigate to the cloned repository on your local machine:
 ```sh
 cd ACII2023
