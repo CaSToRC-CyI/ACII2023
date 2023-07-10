@@ -41,9 +41,9 @@ We are interested into specific columns, therefore follow the instructions below
 ### Digital channels
 **Emotions**
 The relationship between arousal and valence can help interpret emotional states in the dataset. Based on the provided mappings, the following associations can be made:
-- When Arousal = 5 and Valence2 = 0, it corresponds to the emotion of Joy.
-- When Arousal = 0 and Valence2 = 0, it corresponds to a Neutral emotional state.
-- When Arousal = 5 and Valence2 = 5, it corresponds to the emotion of Fear.
+- When Arousal = 5 and Valence2 = 0, it corresponds to the emotion of _Joy_.
+- When Arousal = 0 and Valence2 = 0, it corresponds to a _Neutral_ emotional state.
+- When Arousal = 5 and Valence2 = 5, it corresponds to the emotion of _Fear_.
 These mappings can provide insights into the emotional experiences represented in the dataset.
 
 **Phases**
