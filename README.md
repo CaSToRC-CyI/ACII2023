@@ -114,7 +114,8 @@ Structure of the _ACII2023_Datasets_ folder:
   - [Medium alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset2_medium_dictionaries.py)
   - [High alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset2_high_dictionaries.py)
 
-How to load data: 
+Load the datasets:
+
 #### Step 1:
 Read the csv file which contains the group label and the dataset label.
 ```sh
