@@ -11,9 +11,9 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 
 # Dataset Columns
 ## ACQ files
-0. Channel ECG: Ignore
-1. Channel SCR: Skin conductance response level
-2. Channel ORB: Ignore 
+`0. Channel ECG`: Ignore
+`1. Channel SCR`: Skin conductance response level
+`2. Channel ORB`: Ignore 
 3. Channel COR: Ignore
 4. Channel ZYG: Ignore
 5. Channel Sound: Ignore
@@ -39,7 +39,7 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 We are interested into specific columns, therefore follow the instructions below to extract only the necessary data. 
 
 ### Digital channels
-**Emotions**
+#### Emotions
 The relationship between arousal and valence can help interpret emotional states in the dataset. Based on the provided mappings, the following associations can be made:
 - When Arousal = 5 and Valence2 = 0, it corresponds to the emotion of _Joy_.
 - When Arousal = 0 and Valence2 = 0, it corresponds to a _Neutral_ emotional state.
@@ -47,7 +47,7 @@ The relationship between arousal and valence can help interpret emotional states
 
 These mappings can provide insights into the emotional experiences represented in the dataset.
 
-**Phases**
+#### Phases
 The data collection protocol consisted of three distinct phases: a 20-second baseline, a 60-second phase 1, and a 40-second phase 2. Each participant completed a total of 10 trials, resulting in a cumulative data duration of 1200 seconds for each participant.
 
 To identify and extract the relevant data for analysis, it is important to focus on the specific digital channels corresponding to the Baseline, Phase1, and Phase2 periods. The data collected between these phases should be disregarded as it does not pertain to the targeted experimental periods.
@@ -59,7 +59,7 @@ By filtering the dataset using the digital channels associated with the Baseline
 
 These mappings can provide insights into the phase of the experiment in the dataset.
 
-**Depth of processing**
+#### Depth of processing
 By filtering the dataset using the digital channels associated with the Tone1 and Tone2, you can ensure that only the desired segments of data are considered for further analysis.
 - When Tone1 = 5 and Tone2 = 0, it corresponds to the phase of _Shallow_.
 - When Tone1 = 0 and Tone2 = 5, it corresponds to the phase of _Deep_.
@@ -67,15 +67,15 @@ By filtering the dataset using the digital channels associated with the Tone1 an
 These mappings can provide insights into the depth of processing of the experiment in the dataset.
 
 ## CSV file
-- id: Participant ID
-- gender: Gender of participant
-- age: Age of participant
-- TASDIF: TAS sub-score for difficulty identifying feelings  
-- TASDDF: TAS sub-score for difficulty describing feelings
-- TASEOT: TAS sub-score for external-oriented thinking
-- TAStot: TAS total score
-- group: Label of alexithymia; low (0), medium (1), high (2)
-- dataset: Label of dataset; dataset1 (1) and dataset2 (2)
+- `id`: Participant ID
+- `gender`: Gender of participant
+- `age`: Age of participant
+- `TASDIF`: TAS sub-score for difficulty identifying feelings  
+- `TASDDF`: TAS sub-score for difficulty describing feelings
+- `TASEOT`: TAS sub-score for external-oriented thinking
+- `TAStot`: TAS total score
+- `group`: Label of alexithymia; low (0), medium (1), high (2)
+- `dataset`: Label of dataset; dataset1 (1) and dataset2 (2)
 
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
@@ -118,7 +118,7 @@ Structure of the _ACII2023_Datasets_ folder:
 
 #### Step 1:
 Read the csv file which contains the group label and the dataset label.
-```sh
+```py
 # Import librarires
 from acii2023_functions import create_info_dictionary
 
@@ -138,7 +138,7 @@ Replace `csv_file` with your actual csv path.
 
 #### Step 2:
 Load data of specific participant from dataset 1 with high alexithymia:. 
-```sh
+```py
 # Import librarires
 from acii2023_functions import read_acq_file, rescale
 
