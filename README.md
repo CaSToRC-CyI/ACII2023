@@ -11,9 +11,9 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 
 # Dataset Columns
 ## ACQ files
-`0. Channel ECG`: Ignore
-`1. Channel SCR`: Skin conductance response level
-`2. Channel ORB`: Ignore 
+0. Channel ECG: Ignore
+1. Channel SCR: Skin conductance response level
+2. Channel ORB: Ignore 
 3. Channel COR: Ignore
 4. Channel ZYG: Ignore
 5. Channel Sound: Ignore
@@ -89,7 +89,7 @@ cd /Users/user/Documents/GitHub/ACII2023
 ```
 4. Ensure that you have Python installed on your system. You can download Python from the official website be clicking [here](https://www.python.org/downloads/)
 5. Install the necessary libraries by running the following command in your command prompt or terminal:
-```sh
+```py
 pip install bioread
 pip install pandas
 pip install numpy
