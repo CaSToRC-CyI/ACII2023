@@ -36,11 +36,24 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 22. Channel ECG R-R
 23. Channel Pulse Rate
 
+We are interested into specific columns, therefore follow the instructions below to extract only the necessary data. 
+
+## CSV file
+- id:
+- gender
+- age
+- TASDIF
+- TASDDF
+- TASEOT
+- TAStot
+- group
+- dataset
+
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
 2. Clone the forked repository to your local machine using Git. Open a terminal or command prompt and run the following command:
 ```sh
-git clone https://github.com/your-username/customer-sales-data.git
+git clone https://github.com/CaSToRC-CyI/ACII2023.git
 ```
 Replace `your-username` with your actual GitHub username.
 3. Navigate to the cloned repository on your local machine:
@@ -64,7 +77,7 @@ pip install numpy
   - [High alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset2_high_dictionaries.py)
 
 How to load data: 
-### Step 1:
+##### Step 1:
 Read the csv file which contains the group label and the dataset label.
 ```sh
 # Import librarires
@@ -84,7 +97,7 @@ info_dict = create_info_dictionary(csv_file, key_column, value_columns)
 ```
 Replace `csv_file` with your actual csv path.
 
-### Step 2:
+##### Step 2:
 Load data of specific participant from dataset 1 with high alexithymia:. 
 ```sh
 # Import librarires
@@ -100,7 +113,7 @@ participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq
 ```
 Replace `folder_path` with your actual path.
 
-
+**Note** The _phase2_ channel has been sampled at 125 Hz. In the above code, _phase2_ has been rescaled to be 1000 Hz as the other columns. 
 
 
 ## _Italic Heading 2_
