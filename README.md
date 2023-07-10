@@ -11,8 +11,8 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 
 # Dataset Columns
 ## ACQ files
-0. Channel ECG: Ignore
-1. Channel SCR: Skin conductance response level
+0. `Channel ECG`: Ignore
+1. `Channel SCR`: Skin conductance response level
 2. Channel ORB: Ignore 
 3. Channel COR: Ignore
 4. Channel ZYG: Ignore
@@ -80,11 +80,11 @@ These mappings can provide insights into the depth of processing of the experime
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
 2. Clone the forked repository to your local machine using Git. Open a terminal or command prompt and run the following command:
-```sh
+```py
 git clone https://github.com/CaSToRC-CyI/ACII2023.git
 ```
 3. Navigate to the cloned repository on your local machine, for example:
-```sh
+```py
 cd /Users/user/Documents/GitHub/ACII2023
 ```
 4. Ensure that you have Python installed on your system. You can download Python from the official website be clicking [here](https://www.python.org/downloads/)
