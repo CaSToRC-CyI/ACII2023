@@ -77,7 +77,7 @@ pip install numpy
   - [High alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset2_high_dictionaries.py)
 
 How to load data: 
-##### Step 1:
+#### Step 1:
 Read the csv file which contains the group label and the dataset label.
 ```sh
 # Import librarires
@@ -97,7 +97,7 @@ info_dict = create_info_dictionary(csv_file, key_column, value_columns)
 ```
 Replace `csv_file` with your actual csv path.
 
-##### Step 2:
+#### Step 2:
 Load data of specific participant from dataset 1 with high alexithymia:. 
 ```sh
 # Import librarires
@@ -113,7 +113,7 @@ participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq
 ```
 Replace `folder_path` with your actual path.
 
-**Note** The _phase2_ channel has been sampled at 125 Hz. In the above code, _phase2_ has been rescaled to be 1000 Hz as the other columns. 
+> Note: The **phase2** channel has been sampled at 125 Hz. In the above code, **phase2** has been rescaled to be 1000 Hz as the other columns. 
 
 
 ## _Italic Heading 2_
@@ -153,5 +153,3 @@ Instructions on how to use them in your own application are linked below.
 | OneDrive | [plugins/onedrive/README.md][PlOd] |
 | Medium | [plugins/medium/README.md][PlMe] |
 | Google Analytics | [plugins/googleanalytics/README.md][PlGa] |
-
-> Note: `--capt-add=SYS-ADMIN` is required for PDF rendering.
