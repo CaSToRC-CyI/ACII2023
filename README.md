@@ -13,28 +13,28 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 ## ACQ files
 0. `Channel ECG`: Ignore
 1. `Channel SCR`: Skin conductance response level
-2. Channel ORB: Ignore 
-3. Channel COR: Ignore
-4. Channel ZYG: Ignore
-5. Channel Sound: Ignore
-6. Channel phase1: Digital channel indicating first imagery period
-7. Channel Arousal: Digital channel indicating low/high arousal of emotion
-8. Channel Valence1: Ignore
-9. Channel Valence2: Digital channel indicating the presence of negative emotion
-10. Channel Probe ON: Ignore
-11. Channel Tone1: Digital channel indicating shallow depth of processing
-12. Channel Tone2: Digital channel indicating deep depth of processing
-13. Channel phase2: Digital channel indicating second imagery period
-14. Channel ORB Filter: Ignore
-15. Channel COR Filter: Ignore
-16. Channel ZYG Filter: Ignore
-17. Channel ECG BPM: Electrocardiogram
-18. Channel Trial counter: Ignore
-19. Channel ORB Int: Electromyography of orbicularis
-20. Channel COR Int: Electromyography of corrugator
-21. Channel ZYG Int: Electromyography of zygomaticus
-22. Channel ECG R-R: Ignore
-23. Channel Pulse Rate: Ignore
+2. `Channel ORB`: Ignore 
+3. `Channel COR`: Ignore
+4. `Channel ZYG`: Ignore
+5. `Channel Sound`: Ignore
+6. `Channel phase1`: Digital channel indicating first imagery period
+7. `Channel Arousal`: Digital channel indicating low/high arousal of emotion
+8. `Channel Valence1`: Ignore
+9. `Channel Valence2`: Digital channel indicating the presence of negative emotion
+10. `Channel Probe ON`: Ignore
+11. `Channel Tone1`: Digital channel indicating shallow depth of processing
+12. `Channel Tone2`: Digital channel indicating deep depth of processing
+13. `Channel phase2`: Digital channel indicating second imagery period
+14. `Channel ORB Filter`: Ignore
+15. `Channel COR Filter`: Ignore
+16. `Channel ZYG Filter`: Ignore
+17. `Channel ECG BPM`: Electrocardiogram
+18. `Channel Trial counter`: Ignore
+19. `Channel ORB Int`: Electromyography of orbicularis
+20. `Channel COR Int`: Electromyography of corrugator
+21. `Channel ZYG Int`: Electromyography of zygomaticus
+22. `Channel ECG R-R`: Ignore
+23. `Channel Pulse Rate`: Ignore
 
 We are interested into specific columns, therefore follow the instructions below to extract only the necessary data. 
 
@@ -157,4 +157,18 @@ Replace `folder_path` with your actual path.
 #### Step 3:
 Load data of all the participants and start your analysis
 
+# Dataset Sources and Attribution
+The database was collected from the Psychology department of the University of Cyprus.
+
+The database will be publicly available upon request from the Cyprus Institute. 
+
+If you use this database in your research or analysis, kindly cite it as follows:
+
+_ACII 2023 publication_
+
+# License
+This dataset is provided under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. By using this dataset, you agree to the terms and conditions specified in the license.
+
+# Contact Information
+For any questions, concerns, or inquiries regarding the Alexithymia Database, please contact [v.filippou22@gmail.com].
 
