@@ -9,32 +9,34 @@ The dataset files are provided in two formats: ACQ files and a comma-separated v
 - ACQ files: The datasets are stored in ACQ files, which are data graph files created by AcqKnowledge. Each ACQ file represents data for a single participant. These files contain the recorded physiological signals and various digital channels related to the state of the experiment.
 - Demographics CSV file: In addition to the ACQ files, a separate CSV file is available to access demographics information about the participants. This file provides details such as ID, age, gender, group label, etc. It complements the ACQ files by providing additional contextual information about the participants.
 
+1, 6, 7, 9, 11, 12, 13, 17, 19, 20, 21
+
 # Dataset Columns
 ## ACQ files
-0. Channel ECG:
-1. Channel SCR:
-2. Channel ORB:
-3. Channel COR:
-4. Channel ZYG:
-5. Channel Sound:
-6. Channel phase1:
-7. Channel Arousal:
-8. Channel Valence1:
-9. Channel Valence2:
-10. Channel Probe ON:
-11. Channel Tone1:
-12. Channel Tone2:
-13. Channel phase2:
-14. Channel ORB Filter:
-15. Channel COR Filter:
-16. Channel ZYG Filter:
-17. Channel ECG BPM:
-18. Channel Trial counter:
-19. Channel ORB Int:
-20. Channel COR Int:
-21. Channel ZYG Int:
-22. Channel ECG R-R:
-23. Channel Pulse Rate:
+0. Channel ECG: Ignore
+1. Channel SCR: Skin conductance response level
+2. Channel ORB: Ignore 
+3. Channel COR: Ignore
+4. Channel ZYG: Ignore
+5. Channel Sound: Ignore
+6. Channel phase1: Digital channel indicating first imagery period
+7. Channel Arousal: Digital channel indicating low/high arousal of emotion
+8. Channel Valence1: Ignore
+9. Channel Valence2: Digital channel indicating the presence of negative emotion
+10. Channel Probe ON: Ignore
+11. Channel Tone1: Digital channel indicating shallow depth of processing
+12. Channel Tone2: Digital channel indicating deep depth of processing
+13. Channel phase2: Digital channel indicating second imagery period
+14. Channel ORB Filter: Ignore
+15. Channel COR Filter: Ignore
+16. Channel ZYG Filter: Ignore
+17. Channel ECG BPM: Electrocardiogram
+18. Channel Trial counter: Ignore
+19. Channel ORB Int: Electromyography of orbicularis
+20. Channel COR Int: Electromyography of corrugator
+21. Channel ZYG Int: Electromyography of zygomaticus
+22. Channel ECG R-R: Ignore
+23. Channel Pulse Rate: Ignore
 
 We are interested into specific columns, therefore follow the instructions below to extract only the necessary data. 
 
@@ -67,15 +69,15 @@ By filtering the dataset using the digital channels associated with the Tone1 an
 These mappings can provide insights into the depth of processing of the experiment in the dataset.
 
 ## CSV file
-- id:
-- gender:
-- age:
-- TASDIF:
-- TASDDF:
-- TASEOT:
-- TAStot:
-- group:
-- dataset:
+- id: Participant ID
+- gender: Gender of participant
+- age: Age of participant
+- TASDIF: TAS sub-score for difficulty identifying feelings  
+- TASDDF: TAS sub-score for difficulty describing feelings
+- TASEOT: TAS sub-score for external-oriented thinking
+- TAStot: TAS total score
+- group: Label of alexithymia; low (0), medium (1), high (2)
+- dataset: Label of dataset; dataset1 (1) and dataset2 (2)
 
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
@@ -83,9 +85,9 @@ These mappings can provide insights into the depth of processing of the experime
 ```sh
 git clone https://github.com/CaSToRC-CyI/ACII2023.git
 ```
-3. Navigate to the cloned repository on your local machine:
+3. Navigate to the cloned repository on your local machine, for example:
 ```sh
-cd ACII2023
+cd /Users/user/Documents/GitHub/ACII2023
 ```
 4. Ensure that you have Python installed on your system. You can download Python from the official website be clicking [here](https://www.python.org/downloads/)
 5. Install the necessary libraries by running the following command in your command prompt or terminal:
@@ -94,7 +96,18 @@ pip install bioread
 pip install pandas
 pip install numpy
 ```
-6. Load the files using the scripts found in the following links:
+6. Download the datasets upon request and save them in the directory in a folder called _ACII2023_Datasets_. Contact X for further instructions. 
+
+Structure of the _ACII2023_Datasets_ folder:
+- Dataset 1:
+  - LowAlexithymics
+  - HighAlexithymics
+- Dataset 2:
+  - LowAlexithymics
+  - MediumAlexithymics
+  - HighAlexithymics
+
+7. Load the files using the scripts found in the following links:
 - Dataset 1:
   - [Low alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset1_low_dictionaries.py)
   - [High alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset1_high_dictionaries.py)
@@ -111,7 +124,7 @@ Read the csv file which contains the group label and the dataset label.
 from acii2023_functions import create_info_dictionary
 
 # CSV file path
-csv_file = '/Users/user/Desktop/ACII2023_Datasets/alexithymia_demographics_info.csv'
+csv_file = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/alexithymia_demographics_info.csv'
 
 # ID would be the key column of the dictionary
 key_column = 'id'
@@ -131,7 +144,7 @@ Load data of specific participant from dataset 1 with high alexithymia:.
 from acii2023_functions import read_acq_file, rescale
 
 # Folder path
-folder_path = '/Users/user/Desktop/ACII2023_Datasets/Dataset1/HighAlexithymics/'
+folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexithymics/'
 
 # Dictionary of participant 11251
 participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq'),\
