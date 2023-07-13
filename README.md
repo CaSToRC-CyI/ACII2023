@@ -93,6 +93,8 @@ cd /Users/user/Documents/GitHub/ACII2023
 pip install bioread
 pip install pandas
 pip install numpy
+pip install scipy
+pip install -U scikit-learn
 ```
 6. Download the datasets upon request and save them in the directory in a folder called _ACII2023_Datasets_. Contact X for further instructions. 
 
@@ -146,7 +148,7 @@ from acii2023_functions import read_acq_file, rescale
 folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexithymics/'
 
 # Dictionary of participant 11251
-participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq'),\
+participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq', normalise_data=True, downsample_data=True),\
                                'group_label': info_dict[11251][0],\
                                'dataset': info_dict[11251][1]}}
 ```
@@ -156,6 +158,10 @@ Replace `folder_path` with your actual path.
 
 #### Step 3:
 Load data of all the participants and start your analysis
+
+```py
+
+```
 
 # Dataset Sources and Attribution
 The database was collected from the Psychology department of the University of Cyprus.
