@@ -142,15 +142,13 @@ Replace `csv_file` with your actual csv path.
 Load data of specific participant from dataset 1 with high alexithymia:. 
 ```py
 # Import libraries
-from acii2023_functions import read_acq_file, rescale
+from load_data import load_participant_data
 
 # Folder path
 folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexithymics/'
 
 # Dictionary of participant 11251
-participant_11251 = {'11251': {'acq_data': read_acq_file(folder_path, '11251.acq', normalise_data=True, downsample_data=True),\
-                               'group_label': info_dict[11251][0],\
-                               'dataset': info_dict[11251][1]}}
+participant_11251 = load_participant_data(folder_path, '11251.acq', info_dict, normalise=True, downsample=True)
 ```
 Replace `folder_path` with your actual path.
 
