@@ -6,10 +6,12 @@
 import pandas as pd
 import bioread
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
+from scipy.signal import resample_poly
 
 #%%
 
-def read_acq_file(folder_path, datafile):
+def read_acq_file(folder_path, datafile, normalise_data=True, downsample_data=True):
         
     data = bioread.read(folder_path + datafile)
     
@@ -28,7 +30,7 @@ def read_acq_file(folder_path, datafile):
     # data.channels[21].data # ZYG
     # """
         
-    # This condition is used because of the sampling rate issue of "phase2"
+    # This condition is used because of the sampling rate issue of 'phase2'
     if int(data.channels[13].samples_per_second) == 1000:
         # print("phase2 is okay")
         df = pd.DataFrame([data.time_index, data.channels[1].data, data.channels[17].data,
@@ -46,18 +48,135 @@ def read_acq_file(folder_path, datafile):
    
     df_T = df.transpose()
     
-    df_T.columns = ["time","SCR", "ECG","ORB","COR","ZYG","phase1","Arousal","Valence2",
-                    "Tone1","Tone2","phase2"]
+    df_T.columns = ['time','SCR', 'ECG','ORB','COR','ZYG','phase1','Arousal','Valence2',
+                    'Tone1','Tone2','phase2']
+        
+    df_emotions_tones_phases = emotions_tones_phases(df_T)
     
-    return df_T
+    df_clean = drop_nan_values(df_emotions_tones_phases)
+        
+        
+    if (downsample_data == True) and (normalise_data == True):
+        
+        df_tmp = downsample(df_clean)        
+        df_final = normalise(df_tmp)
+
+    elif (downsample_data == True) and (normalise_data == False):
+        df_final = downsample(df_clean)
+
+    elif (downsample_data == False) and (normalise_data == True):
+        df_final = normalise(df_clean)
+        
+    elif (downsample_data == False) and (normalise_data == False):   
+        
+        df_final = df_clean
+        
+        
+
+    return df_final
 
 #%%
 
-# This function is used to rescale "phase2" where necessary. 
+# This function is used to rescale 'phase2' where necessary. 
 
 def rescale(arr, factor):
     n = len(arr)
     return np.interp(np.linspace(0, n, factor*n+1), np.arange(n), arr)
+#%%    
+def emotions_tones_phases(df):
+    # Baseline
+    
+    # Shallow
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 5) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 0) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Fear_Shallow_Baseline"
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 0) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 0) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Joy_Shallow_Baseline"
+    df.loc[(df['Arousal'] == 0) & (df['Valence2'] == 0) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 0) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Neutral_Shallow_Baseline"
+    # Deep
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 5) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 0) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Fear_Deep_Baseline"
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 0) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 0) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Joy_Deep_Baseline"
+    df.loc[(df['Arousal'] == 0) & (df['Valence2'] == 0) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 0) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Neutral_Deep_Baseline"
+    
+    # Phase1
+    
+    # Shallow
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 5) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 5) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Fear_Shallow_Phase1"
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 0) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 5) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Joy_Shallow_Phase1"
+    df.loc[(df['Arousal'] == 0) & (df['Valence2'] == 0) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 5) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Neutral_Shallow_Phase1"
+    # Deep
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 5) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 5) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Fear_Deep_Phase1"
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 0) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 5) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Joy_Deep_Phase1"
+    df.loc[(df['Arousal'] == 0) & (df['Valence2'] == 0) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 5) & (df['phase2'] == 0), 'Emotion_Tone_Phase'] = "Neutral_Deep_Phase1"
+
+    # Phase2
+    
+    # Shallow
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 5) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 0) & (df['phase2'] == 5), 'Emotion_Tone_Phase'] = "Fear_Shallow_Phase2"
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 0) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 0) & (df['phase2'] == 5), 'Emotion_Tone_Phase'] = "Joy_Shallow_Phase2"
+    df.loc[(df['Arousal'] == 0) & (df['Valence2'] == 0) & (df['Tone1'] == 5) & (df['Tone2'] == 0) & (df['phase1'] == 0) & (df['phase2'] == 5), 'Emotion_Tone_Phase'] = "Neutral_Shallow_Phase2"
+    # Deep
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 5) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 0) & (df['phase2'] == 5), 'Emotion_Tone_Phase'] = "Fear_Deep_Phase2"
+    df.loc[(df['Arousal'] == 5) & (df['Valence2'] == 0) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 0) & (df['phase2'] == 5), 'Emotion_Tone_Phase'] = "Joy_Deep_Phase2"
+    df.loc[(df['Arousal'] == 0) & (df['Valence2'] == 0) & (df['Tone1'] == 0) & (df['Tone2'] == 5) & (df['phase1'] == 0) & (df['phase2'] == 5), 'Emotion_Tone_Phase'] = "Neutral_Deep_Phase2"    
+    
+    df = df.reset_index(drop=True)
+    
+    return df
+#%%
+def drop_nan_values(df):
+    
+    df = df[df['Emotion_Tone_Phase'].notna()] 
+    
+    df = df.reset_index(drop=True)
+
+    return df
+#%%
+def normalise(dataframe):
+    
+    states = dataframe['Emotion_Tone_Phase'].unique()
+    normalised_data = []
+    
+    min_max_scaler = MinMaxScaler()
+    
+    for state in states:
+        
+        state_data = dataframe[dataframe['Emotion_Tone_Phase'] == state]
+        
+        normalised_state = min_max_scaler.fit_transform(state_data[['SCR', 'ECG', 'ORB','COR', 'ZYG']])
+        normalised_df_tmp = pd.DataFrame(normalised_state, columns=['SCR', 'ECG', 'ORB', 'COR', 'ZYG'])
+        
+        normalised_df_tmp['Emotion_Tone_Phase'] = state
+        
+        normalised_data.append(normalised_df_tmp)
+    
+    normalised_df = pd.concat(normalised_data)
+    
+    return normalised_df        
+    
+ 
+#%%
+def downsample(dataframe):
+    
+    states = dataframe['Emotion_Tone_Phase'].unique()
+
+    downsampled_data = []
+    
+    N = 300
+  
+    for state in states:
+        
+        state_data = dataframe[dataframe['Emotion_Tone_Phase'] == state]  # Filter rows based on the current state
+              
+        downsampled_state = resample_poly(x=state_data[['SCR', 'ECG', 'ORB', 'COR', 'ZYG']], up=1, down=N, axis=0, padtype="mean")
+        
+        downsampled_df_tmp = pd.DataFrame(downsampled_state, columns=['SCR', 'ECG', 'ORB', 'COR', 'ZYG'])
+        
+        downsampled_df_tmp['Emotion_Tone_Phase'] = state
+        
+        downsampled_data.append(downsampled_df_tmp)
+    
+    downsampled_df = pd.concat(downsampled_data)
+    
+    return downsampled_df
+
 
 #%%
 
