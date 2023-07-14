@@ -163,7 +163,9 @@ Replace `folder_path` with your actual path.
 #### Step 3:
 Load data of the participants of interest and start your analysis
 
-Option 1: Returns a dictionary of dictionaries which include physiological signals and information associated with specific participant
+##### Option 1: 
+Returns a dictionary of dictionaries which include physiological signals and information associated with specific participant
+
 ```py
 # Import libraries
 from load_data import load_participant_data
@@ -177,7 +179,9 @@ dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq'
 X, y = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, tsfresh=False, state='Universal', scale_features=False)
 ```
 
-Option 2: Returns tsfresh features and relevance table of features
+##### Option 2: 
+Returns tsfresh features and relevance table of features
+
 ```py
 # Import libraries
 from load_data import load_participant_data
@@ -191,7 +195,7 @@ dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq'
 features, relevance_table = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, tsfresh=True, state='Universal', scale_features=True)
 ```
 
-For this option, you can select the top 10 features using the two lines below:
+For Option 2, you can select the top 10 features using the two lines below:
 ```py
 top_features_table = relevance_table["feature"].head(10)
 
