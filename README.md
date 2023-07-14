@@ -66,6 +66,17 @@ By filtering the dataset using the digital channels associated with the Tone1 an
 
 These mappings can provide insights into the depth of processing of the experiment in the dataset.
 
+#### Alexithymia labels
+- Low alexithymia
+  - Group: 0
+  - TAS score: < 51
+- Medium alexithymia
+  - Group: 1
+  - TAS score: 51 <= 60
+- High alexithymia
+  - Group: 2
+  - TAS score: 61 <
+
 ## CSV file
 - `id`: Participant ID
 - `gender`: Gender of participant
