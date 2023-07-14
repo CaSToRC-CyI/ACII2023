@@ -315,31 +315,23 @@ def feature_extraction(X, y, state, scale_features=True):
     - relevance_table_clf (pandas.DataFrame): The relevance table for the extracted features based on p-values.
     """
     
-    # List to store data frames
-    dfs = []
-    # List to store corresponding keys
-    keys = []
-    
-    # Iterate over each sub-dictionary
-    for key, value in X.items():
-        df = value['acq_data']  # Extract the data frame
-        dfs.append(df)  # Append the data frame to the list
-        keys.extend([key] * len(df))  # Add the key for each row
-    
-    # Concatenate the data frames
-    concat_df = pd.concat(dfs)
-    
-    # Add the key column to the concatenated DataFrame
-    concat_df['id'] = keys
-    
     # Select relevant columns for feature extraction
-    data_x = concat_df[['ECG', 'SCR', 'COR', 'ORB', 'ZYG', 'id']]
-
+    data_x = X[['ECG', 'SCR', 'COR', 'ORB', 'ZYG', 'id']]
+    
     extraction_settings = EfficientFCParameters() # Define the feature extraction settings
     X_extracted = extract_features(data_x, column_id='id',  # Perform feature extraction
                           default_fc_parameters=extraction_settings,
                           # we impute = remove all NaN features automatically
                           impute_function=impute, show_warnings=False)
+    
+    # Excluding any label that its id might not be present in the extracted features
+    idx_data = y.index
+    idx_features = X_extracted.index 
+    idx_difference = idx_data.difference(idx_features)
+    
+    # Selecting the labels for either classification or regression
+    y_data = y.drop(index=idx_difference, axis=0)
+    # y_data = y_data['Alexithymic_Vs_Control'].squeeze()
     
     if scale_features == True: 
     
@@ -351,14 +343,11 @@ def feature_extraction(X, y, state, scale_features=True):
     else: 
         pass # If scaling is not required, do nothing
     
-    # Convert the target labels to a pandas Series
-    data_y = pd.Series(y)
-    
     # Calculate the relevance table for the extracted features based on p-values
     if scale_features == True:
-        relevance_table_clf = calculate_relevance_table(X_extracted_norm, data_y)
+        relevance_table_clf = calculate_relevance_table(X_extracted_norm, y_data)
     else:    
-        relevance_table_clf = calculate_relevance_table(X_extracted, data_y)
+        relevance_table_clf = calculate_relevance_table(X_extracted, y_data)
     
     # Sort the relevance table by p-values
     relevance_table_clf.sort_values('p_value', inplace=True)
