@@ -8,7 +8,8 @@ Created on Thu Jul 13 12:33:20 2023
 #%%
 
 from acii2023_functions import read_acq_file, feature_extraction
-
+import numpy as np
+import pandas as pd
 #%%
 
 def load_participant_data(folder_path, filename, info_dict, normalise=True, downsample=True, state='Universal'):
@@ -47,7 +48,7 @@ def load_participant_data(folder_path, filename, info_dict, normalise=True, down
 
 #%%
 
-def load_dataset(folder_path, participant_list, info_dict, normalise=True, downsample=True, tsfresh=False, state='Universal', scale_features=True):
+def load_dataset(folder_path, participant_list, info_dict, normalise=True, downsample=True, state='Universal', tsfresh=True):
     """
     Load a dataset consisting of participant data and their corresponding labels.
     
@@ -57,7 +58,6 @@ def load_dataset(folder_path, participant_list, info_dict, normalise=True, downs
     - info_dict (dict): The dictionary containing information about participants.
     - normalise (bool): Flag indicating whether to normalise the data.
     - downsample (bool): Flag indicating whether to downsample the data.
-    - tsfresh (bool): Flag indicating whether to perform feature extraction using tsfresh.
     - state (str): The state for filtering the data. Default is 'Universal'. The other options are:
         * 'Fear_Shallow_Phase1'
         * 'Fear_Deep_Phase1'
@@ -71,7 +71,7 @@ def load_dataset(folder_path, participant_list, info_dict, normalise=True, downs
         * 'Neutral_Deep_Phase1'
         * 'Neutral_Shallow_Phase2'
         * 'Neutral_Deep_Phase2'
-    - scale_features (bool): Flag indicating whether to scale the extracted features.
+    - tsfresh (bool): Flag indicating whether to perform feature extraction using tsfresh.
     
     Returns:
     Only returned if tsfresh is False
@@ -93,13 +93,29 @@ def load_dataset(folder_path, participant_list, info_dict, normalise=True, downs
         numerical_part = participant[:dot_index] # Extract the numerical part of the participant filename
         X[numerical_part] = df # Store the participant data in the X dictionary
         y[numerical_part] = info_dict[int(numerical_part)][0] # Store the participant label in the y dictionary
-                  
+       
+   
     if tsfresh == False: 
         return X, y # Return the participant data (X) and labels (y)
     elif tsfresh == True:
-        features, relevance_table = feature_extraction(X, y, state, scale_features) # Perform feature extraction using tsfresh
+        # List to store data frames
+        dfs = []
+        # List to store corresponding keys
+        keys = []
         
-        return features, relevance_table # Return the extracted features and the relevance table
+        # Iterate over each sub-dictionary
+        for key, value in X.items():
+            df = value['acq_data']  # Extract the data frame
+            dfs.append(df)  # Append the data frame to the list
+            keys.extend([key] * len(df))  # Add the key for each row
+        
+        # Concatenate the data frames
+        concat_df = pd.concat(dfs)
+        
+        # Add the key column to the concatenated DataFrame
+        concat_df['id'] = keys
+        
+        return concat_df, y # Return dataframe
 
     
 
