@@ -176,11 +176,11 @@ folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexi
 # List of selected participants to load dataset
 dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq', '32259.acq', '11251.acq']
 
-X, y = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, tsfresh=False, state='Universal', scale_features=False)
+X_1_high, y_1_high = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, state='Universal', tsfresh=False)
 ```
 
 ##### Option 2: 
-Returns tsfresh features and relevance table of features
+Returns dataframe with concatenated signals and dictionary of group labels
 
 ```py
 # Import libraries
@@ -192,15 +192,11 @@ folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexi
 # List of selected participants to load dataset
 dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq', '32259.acq', '11251.acq']
 
-features, relevance_table = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, tsfresh=True, state='Universal', scale_features=True)
+X_1_high, y_1_high = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, state='Universal', tsfresh=True)
 ```
 
-For Option 2, you can select the top 10 features using the two lines below:
-```py
-top_features_table = relevance_table["feature"].head(10)
+> Check the [sample script](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset2_high_dictionaries.py) for entire analysis, including loading dataset, extracting tsfresh features, and performing logistic regression. 
 
-top_features = features[top_features_table]
-```
 
 # Dataset Sources and Attribution
 The database was collected from the Psychology department of the University of Cyprus.
