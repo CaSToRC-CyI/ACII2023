@@ -106,6 +106,7 @@ pip install pandas
 pip install numpy
 pip install scipy
 pip install -U scikit-learn
+pip install tsfresh
 ```
 6. Download the datasets upon request and save them in the directory in a folder called _ACII2023_Datasets_. Contact X for further instructions. 
 
@@ -118,7 +119,7 @@ Structure of the _ACII2023_Datasets_ folder:
   - MediumAlexithymics
   - HighAlexithymics
 
-7. Load the files using the scripts found in the following links:
+7. Load the files and/or lists using the scripts found in the following links:
 - Dataset 1:
   - [Low alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset1_low_dictionaries.py)
   - [High alexithymics](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset1_high_dictionaries.py)
@@ -138,19 +139,13 @@ from acii2023_functions import create_info_dictionary
 # CSV file path
 csv_file = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/alexithymia_demographics_info.csv'
 
-# ID would be the key column of the dictionary
-key_column = 'id'
-
-# Group and dataset labels would be the values of the dictionary
-value_columns = ['group', 'dataset'] 
-
 # Dictionary containing information for each participant
-info_dict = create_info_dictionary(csv_file, key_column, value_columns)
+info_dict = create_info_dictionary(csv_file, 'id', ['group', 'dataset', 'TASDIF', 'TASDDF', 'TASEOT', 'TAStot'])
 ```
 Replace `csv_file` with your actual csv path.
 
 #### Step 2:
-Load data of specific participant from dataset 1 with high alexithymia:. 
+Load data of individual participant from dataset 1 with high alexithymia:. 
 ```py
 # Import libraries
 from load_data import load_participant_data
@@ -159,17 +154,48 @@ from load_data import load_participant_data
 folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexithymics/'
 
 # Dictionary of participant 11251
-participant_11251 = load_participant_data(folder_path, '11251.acq', info_dict, normalise=True, downsample=True)
+participant_11251 = load_participant_data(folder_path, '11251.acq', info_dict, normalise=True, downsample=True, state='Universal')
 ```
 Replace `folder_path` with your actual path.
 
 > Note: The **phase2** channel has been sampled at 125 Hz. In the above code, **phase2** has been rescaled to be 1000 Hz as the other columns.
 
 #### Step 3:
-Load data of all the participants and start your analysis
+Load data of the participants of interest and start your analysis
 
+Option 1: Returns a dictionary of dictionaries which include physiological signals and information associated with specific participant
 ```py
+# Import libraries
+from load_data import load_participant_data
 
+# Folder path
+folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexithymics/'
+
+# List of selected participants to load dataset
+dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq', '32259.acq', '11251.acq']
+
+X, y = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, tsfresh=False, state='Universal', scale_features=False)
+```
+
+Option 2: Returns tsfresh features and relevance table of features
+```py
+# Import libraries
+from load_data import load_participant_data
+
+# Folder path
+folder_path = '/Users/user/Desktop/ACII2023/ACII2023_Datasets/Dataset1/HighAlexithymics/'
+
+# List of selected participants to load dataset
+dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq', '32259.acq', '11251.acq']
+
+features, relevance_table = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, tsfresh=True, state='Universal', scale_features=True)
+```
+
+For this option, you can select the top 10 features using the two lines below:
+```py
+top_features_table = relevance_table["feature"].head(10)
+
+top_features = features[top_features_table]
 ```
 
 # Dataset Sources and Attribution
