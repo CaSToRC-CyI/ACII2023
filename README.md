@@ -195,7 +195,7 @@ dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq'
 X_1_high, y_1_high = load_dataset(folder_path, dataset1_high, info_dict, normalise=True, downsample=True, state='Universal', tsfresh=True)
 ```
 
-> Check the [sample script](https://github.com/CaSToRC-CyI/ACII2023/blob/main/dataset2_high_dictionaries.py) for entire analysis, including loading dataset, extracting tsfresh features, and performing logistic regression. 
+> Check the [sample script](https://github.com/CaSToRC-CyI/ACII2023/blob/main/sample_script.py) for entire analysis, including loading dataset, extracting tsfresh features, and performing logistic regression. 
 
 
 # Dataset Sources and Attribution
