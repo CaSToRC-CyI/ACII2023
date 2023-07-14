@@ -27,5 +27,5 @@ participant_321349 = load_participant_data(folder_path, '321349.acq', info_dict,
 #%% 
 
 # List of participants to load dataset
-dataset2_medium = ['222320.acq', '112307.acq', '312355.acq', '222323.acq', '222332.acq', '321349.acq',\
-                   '311367.acq', '221311.acq', '122324.acq', '112353.acq']
+dataset2_medium_list = ['222320.acq', '112307.acq', '312355.acq', '222323.acq', '222332.acq', '321349.acq',\
+                        '311367.acq', '221311.acq', '122324.acq', '112353.acq']
