@@ -44,7 +44,7 @@ participant_32259 = load_participant_data(folder_path, '32259.acq', info_dict, n
 #%% 
 
 # List of participants to load dataset
-dataset1_high = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq', '32259.acq', '11251.acq',\
-                 '22114.ACQ', '12001.acq', '22129.acq', '12113.ACQ', '31253.acq', '12128.ACQ', '21246.acq',\
-                 '12116.ACQ', '12125.ACQ', '12257.acq', '12134.ACQ', '12122.ACQ', '22252.acq', '32136.acq',\
-                 '32241.ACQ', '22132.acq', '32127.acq', '32130.acq', '22135.acq', '12236.ACQ']
+dataset1_high_list = ['32115.acq', '22258.acq', '11254.acq', '12239.ACQ', '22249.acq', '32259.acq', '11251.acq',\
+                      '22114.ACQ', '12001.acq', '22129.acq', '12113.ACQ', '31253.acq', '12128.ACQ', '21246.acq',\
+                      '12116.ACQ', '12125.ACQ', '12257.acq', '12134.ACQ', '12122.ACQ', '22252.acq', '32136.acq',\
+                      '32241.ACQ', '22132.acq', '32127.acq', '32130.acq', '22135.acq', '12236.ACQ']
