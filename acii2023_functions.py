@@ -9,9 +9,14 @@ import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from scipy.signal import resample_poly
 
+
+from tsfresh import extract_features, select_features
+from tsfresh.feature_selection.relevance import calculate_relevance_table
+from tsfresh.feature_extraction import ComprehensiveFCParameters, EfficientFCParameters
+from tsfresh.utilities.dataframe_functions import impute
 #%%
 
-def read_acq_file(folder_path, datafile, normalise_data=True, downsample_data=True):
+def read_acq_file(folder_path, datafile, state='Universal', normalise_data=True, downsample_data=True):
         
     data = bioread.read(folder_path + datafile)
     
@@ -72,6 +77,10 @@ def read_acq_file(folder_path, datafile, normalise_data=True, downsample_data=Tr
         df_final = df_clean
         
         
+    if state == 'Universal':
+        pass
+    else:
+        df_final = df_final[df_final['Emotion_Tone_Phase'] == state][['ECG', 'SCR', 'COR', 'ORB', 'ZYG', 'Emotion_Tone_Phase']]
 
     return df_final
 
@@ -192,3 +201,66 @@ def create_info_dictionary(csv_file, key_column, value_columns):
     return info_dict
 
 
+#%%    
+def feature_extraction(X, y, state, scale_features=True):
+    
+    # Extracting the first items (data frames) from each sub-dictionary
+    dfs = [value['acq_data'] for value in X.values()]
+    
+    dfs = []
+    keys = []
+    
+    # Iterate over each sub-dictionary
+    for key, value in X.items():
+        df = value['acq_data']  # Extract the data frame
+        dfs.append(df)    # Append the data frame to the list
+        keys.extend([key] * len(df))  # Add the key for each row
+    
+    # Concatenate the data frames
+    concat_df = pd.concat(dfs)
+    
+    # Add the key column to the big DataFrame
+    concat_df['id'] = keys
+    
+    
+    data_x = concat_df[['ECG', 'SCR', 'COR', 'ORB', 'ZYG', 'id']]
+
+    extraction_settings = EfficientFCParameters()
+    X_extracted = extract_features(data_x, column_id='id',
+                          default_fc_parameters=extraction_settings,
+                          # we impute = remove all NaN features automatically
+                          impute_function=impute, show_warnings=False)
+    
+    if scale_features == True: 
+    
+        min_max_scaler = MinMaxScaler()
+        X_extracted_norm_tmp = min_max_scaler.fit_transform(X_extracted)
+        X_extracted_norm = pd.DataFrame(X_extracted_norm_tmp, 
+                                        index=X_extracted.index,
+                                        columns=X_extracted.columns)
+    else: 
+        pass
+    
+    data_y = pd.Series(y)
+    
+    
+    # This table is used to identify the top features for classification based on p_value 
+    if scale_features == True:
+        relevance_table_clf = calculate_relevance_table(X_extracted_norm, data_y)
+    else:    
+        relevance_table_clf = calculate_relevance_table(X_extracted, data_y)
+    
+    relevance_table_clf.sort_values("p_value", inplace=True)
+    relevance_table_clf
+    
+    top_features = relevance_table_clf["feature"]
+ 
+    if scale_features == True:
+        x_features = X_extracted_norm[top_features]
+    else:    
+        x_features = X_extracted[top_features]  
+    
+
+
+    return x_features, relevance_table_clf
+    
