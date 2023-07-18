@@ -79,7 +79,7 @@ These mappings can provide insights into the depth of processing of the experime
 
 ## CSV file
 - `id`: Participant ID
-- `gender`: Gender of participant
+- `gender`: Gender of participant; male (1), female (2)
 - `age`: Age of participant
 - `TASDIF`: TAS sub-score for difficulty identifying feelings  
 - `TASDDF`: TAS sub-score for difficulty describing feelings
