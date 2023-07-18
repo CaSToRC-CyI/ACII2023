@@ -89,7 +89,7 @@ These mappings can provide insights into the depth of processing of the experime
 - `dataset`: Label of dataset; dataset1 (1) and dataset2 (2)
 
 ### Data Description 
-| Dataset | Group label | Gender | Mean Age | Mean TAS-score Total| Gender Count |
+| Dataset | Group Label | Gender | Mean Age | Mean TAS-score Total| Gender Count |
 |---------|-------------|--------|----------|---------------------|--------------|
 |    1    |      L      |   M    |    25    |         36          |      4       |
 |    1    |      L      |   F    |    21    |         42          |      21      |
@@ -102,6 +102,7 @@ These mappings can provide insights into the depth of processing of the experime
 |    2    |      H      |   M    |    21    |         63          |      3       |
 |    2    |      H      |   F    |    20    |         65          |      8       |
 
+> Group Label (L: Low, M: Medium, H: High), Gender (M: Male, F: Female)
 
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
