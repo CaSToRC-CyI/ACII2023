@@ -103,6 +103,7 @@ These mappings can provide insights into the depth of processing of the experime
 |    2    |      H      |   F    |    20    |         65          |      8       |
 
 > Group Label - L: Low, M: Medium, H: High
+>
 > Gender - M: Male, F: Female
 
 # Data Usage Instructions
