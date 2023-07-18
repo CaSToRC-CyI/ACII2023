@@ -88,6 +88,21 @@ These mappings can provide insights into the depth of processing of the experime
 - `group`: Label of alexithymia; low (0), medium (1), high (2)
 - `dataset`: Label of dataset; dataset1 (1) and dataset2 (2)
 
+### Data Description 
+| Dataset | Group label | Gender | Mean Age | Mean TAS-score Total| Gender Count |
+|---------|-------------|--------|----------|---------------------|--------------|
+|    1    |      L      |   M    |    25    |         36          |      4       |
+|    1    |      L      |   F    |    21    |         42          |      21      |
+|    1    |      H      |   M    |    23    |         65          |      4       |
+|    1    |      H      |   F    |    21    |         66          |      21      |
+|    2    |      L      |   M    |    22    |         40          |      12      |
+|    2    |      L      |   F    |    21    |         38          |      32      |
+|    2    |      M      |   M    |    21    |         54          |      1       |
+|    2    |      M      |   F    |    21    |         55          |      8       |
+|    2    |      H      |   M    |    21    |         63          |      3       |
+|    2    |      H      |   F    |    20    |         65          |      8       |
+
+
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
 2. Clone the forked repository to your local machine using Git. Open a terminal or command prompt and run the following command:
