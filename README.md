@@ -102,7 +102,8 @@ These mappings can provide insights into the depth of processing of the experime
 |    2    |      H      |   M    |    21    |         63          |      3       |
 |    2    |      H      |   F    |    20    |         65          |      8       |
 
-> Group Label (L: Low, M: Medium, H: High), Gender (M: Male, F: Female)
+> Group Label - L: Low, M: Medium, H: High
+> Gender - M: Male, F: Female
 
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
