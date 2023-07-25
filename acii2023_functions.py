@@ -87,17 +87,26 @@ def read_acq_file(folder_path, datafile, state='Universal', normalise_data=True,
     # Perform operations on the DataFrame
     df_emotions_tones_phases = emotions_tones_phases(df_T)
     df_clean = drop_nan_values(df_emotions_tones_phases)
-        
+    
+    
+    list_modified_files = ['12113.acq', '12116.acq', '12125.acq', '12236.acq', '32115.acq', '12001.acq'\
+                           '12004.acq', '12010.acq', '32138.acq', '122306.acq', '122347.acq']
+    if datafile in list_modified_files:
+        df_modified = manual_processing_data(datafile, df_clean)
+                        
+    else:
+        df_modified = df_clean
+    
     # Downsample and/or normalize the data based on the input flags        
     if (downsample_data == True) and (normalise_data == True):       
-        df_tmp = downsample(df_clean)        
+        df_tmp = downsample(df_modified)        
         df_final = normalise(df_tmp)
     elif (downsample_data == True) and (normalise_data == False):
-        df_final = downsample(df_clean)
+        df_final = downsample(df_modified)
     elif (downsample_data == False) and (normalise_data == True):
-        df_final = normalise(df_clean)
+        df_final = normalise(df_modified)
     elif (downsample_data == False) and (normalise_data == False):   
-        df_final = df_clean
+        df_final = df_modified
         
     # Filter the data based on the 'state' parameter if provided
     if state == 'Universal':
@@ -171,6 +180,94 @@ def emotions_tones_phases(df):
     df = df.reset_index(drop=True)
     
     return df
+
+#%%
+def trial_order(df):
+        
+    changes = {}
+    
+    for col in df.columns:
+        changes[col] = [0] + [idx for idx, (i, j) in enumerate(zip(df[col], df[col][1:]), 1) if i != j]
+        
+    list_ETP_changes = []
+    
+    for i in changes["Emotion_Tone_Phase"]:
+        list_ETP_changes.append(i)
+        
+    list_ETP_changes_names = []
+    
+    for i in list_ETP_changes:
+        list_ETP_changes_names.append(df["Emotion_Tone_Phase"][i])
+               
+    list_ETP_changes_diff = [x - list_ETP_changes[i - 1] for i, x in enumerate(list_ETP_changes)][1:]
+    
+    list_ETP_changes_ = list(zip(list_ETP_changes_diff, list_ETP_changes, list_ETP_changes_names))
+    
+    ranges_list = []
+    for i, v in enumerate(list_ETP_changes):
+        # ignore the first range
+        ranges_list.append([list_ETP_changes[i-1], list_ETP_changes[i]])
+        
+    ranges_list = ranges_list[1:]
+
+    return list_ETP_changes_, ranges_list
+
+#%%
+
+def manual_processing_data(datafile, df):
+    
+    df_order = trial_order(df)
+    
+    if datafile == '12113.acq':
+        df.loc[df_order[1][28][0]:df_order[1][28][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Baseline' 
+        df.loc[df_order[1][29][0]:df_order[1][29][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Phase1'
+        df.loc[df_order[1][30][0]:df_order[1][30][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Phase2'
+        df.loc[df_order[1][31][0]:df_order[1][31][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Baseline'
+        df.loc[df_order[1][32][0]:df_order[1][32][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Phase1'
+        
+    elif datafile == '12116.acq':
+        df.loc[df_order[1][5][0]:df_order[1][5][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Phase2'
+        df.loc[df_order[1][7][0]:df_order[1][7][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Phase2'
+        
+    elif datafile == '12125.acq':
+        df.loc[df_order[1][22][0]:df_order[1][22][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Phase1'
+        df.loc[df_order[1][24][0]:df_order[1][24][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Phase2'
+        
+    elif datafile == '12236.acq':
+        df = df.loc[df_order[1][56][0]:df.shape[0]-1]
+
+    elif datafile == '32115.acq':
+        df.loc[df_order[1][8][0]:df_order[1][8][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Baseline'
+        df.loc[df_order[1][9][0]:df_order[1][9][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Phase1'
+        df.loc[df_order[1][10][0]:df_order[1][10][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Phase2'
+        df.loc[df_order[1][12][0]:df_order[1][12][1]-1, "Emotion_Tone_Phase"] = 'Joy_Deep_Phase2'
+        df.loc[df_order[1][13][0]:df_order[1][13][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Baseline'
+        df.loc[df_order[1][14][0]:df_order[1][14][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Phase1'
+        df.loc[df_order[1][15][0]:df_order[1][15][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Phase2'
+        
+    elif datafile == '12001.acq':
+        df = df.loc[df_order[1][107][0]:df.shape[0]-1]
+
+        
+    elif datafile == '12004.acq':
+        df = df.loc[df_order[1][1][0]:df.shape[0]-1]
+
+    elif datafile == '12010.acq':
+        df.loc[df_order[1][0][0]:df_order[1][0][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Baseline'
+        df.loc[df_order[1][1][0]:df_order[1][1][1]-1, "Emotion_Tone_Phase"] = 'Joy_Shallow_Phase1'
+        
+    elif datafile == '32138.acq':
+        df = df.loc[df_order[1][1][0]:df.shape[0]-1]
+
+
+    elif datafile == '122306.acq':
+        df = df.loc[df_order[1][1][0]:df.shape[0]-1]
+     
+    elif datafile == '122347.acq':
+        df = df.loc[df_order[1][1][0]:df.shape[0]-1]
+
+    return df
+
 #%%
 def drop_nan_values(df):
     """
