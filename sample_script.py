@@ -29,7 +29,6 @@ csv_file = '/Users/user/Desktop/ACII2023_Datasets/alexithymia_demographics_info.
 # Dictionary containing information for each participant
 info_dict = create_info_dictionary(csv_file, 'id', ['group', 'dataset', 'TASDIF', 'TASDDF', 'TASEOT', 'TAStot'])
 
-                 
 #%%
 
 # Load the dataset for low-level participants
