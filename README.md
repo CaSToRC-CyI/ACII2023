@@ -106,6 +106,10 @@ These mappings can provide insights into the depth of processing of the experime
 >
 > Gender - M: Male, F: Female
 
+### Included ACQ files with special notes:
+- `12113, 12116, 12125, 32115, 12010`: Assigns specific values to the "Emotion_Tone_Phase" column based on a predetermined order of experiments, ensuring that the data is correctly labeled according to the experimental conditions.
+- `12236, 12001, 12004, 32138, 122306, 122347`: Filter out unnecessary rows from the "Emotion_Tone_Phase" column based on a predetermined order of experiments, ensuring that the data is correctly labeled according to the experimental conditions.
+
 # Data Usage Instructions
 1. Fork the GitHub repository containing the Alexithymia Database Instructions to your own GitHub account. This will create a copy of the repository under your account.
 2. Clone the forked repository to your local machine using Git. Open a terminal or command prompt and run the following command:
