@@ -183,33 +183,45 @@ def emotions_tones_phases(df):
 
 #%%
 def trial_order(df):
-        
+    
+    # Create a dictionary to store the indices where the values change for each column in the DataFrame.
     changes = {}
     
+    # Iterate through each column in the DataFrame.
     for col in df.columns:
+        # Calculate the indices where the values in the column change and store them in a list.
+        # The zip function pairs up consecutive elements, and the enumerate function provides the index.
+        # The condition "i != j" checks if the current element is different from the next one (indicating a change).
+        # The list comprehension creates a list of indices with 1 added to each index (to account for the shift caused by zip).
+        # The first element is set to 0 to represent the first row, which is always considered as a change (to capture the baseline).
         changes[col] = [0] + [idx for idx, (i, j) in enumerate(zip(df[col], df[col][1:]), 1) if i != j]
         
+    # Extract the list of indices where changes occurred in the "Emotion_Tone_Phase" column.
     list_ETP_changes = []
-    
     for i in changes["Emotion_Tone_Phase"]:
         list_ETP_changes.append(i)
-        
+     
+    # Extract the names corresponding to the indices where changes occurred in the "Emotion_Tone_Phase" column.
     list_ETP_changes_names = []
-    
     for i in list_ETP_changes:
         list_ETP_changes_names.append(df["Emotion_Tone_Phase"][i])
                
+    # Calculate the differences between consecutive elements in the list of changes.
     list_ETP_changes_diff = [x - list_ETP_changes[i - 1] for i, x in enumerate(list_ETP_changes)][1:]
-    
+
+    # Combine the differences, indices, and names into a list of tuples.    
     list_ETP_changes_ = list(zip(list_ETP_changes_diff, list_ETP_changes, list_ETP_changes_names))
-    
+   
+    # Create a list of ranges, where each range consists of two consecutive elements from the list of changes.
+    # Note: The first range is ignored as it represents the baseline.
     ranges_list = []
     for i, v in enumerate(list_ETP_changes):
-        # ignore the first range
         ranges_list.append([list_ETP_changes[i-1], list_ETP_changes[i]])
         
+    # Remove the first range from the list (as it represents the baseline).
     ranges_list = ranges_list[1:]
 
+    # Return the list of tuples containing changes and the list of ranges.
     return list_ETP_changes_, ranges_list
 
 #%%
