@@ -223,7 +223,7 @@ X_1_high, y_1_high = load_dataset(folder_path, dataset1_high, info_dict, normali
 # Dataset Sources and Attribution
 The database was collected from the Psychology department of the University of Cyprus.
 
-The database will be publicly available upon request from the Cyprus Institute. You can fill the following form to request the data by clicking [here](https://docs.google.com/forms/d/e/1FAIpQLSe-19X-YmBfKlfJIA-frKVPiqnaOXz94Y-UQC_9Cf2DS5bBmA/viewform)
+The database will be publicly available upon request from the Cyprus Institute. You can fill the following form to request the data by clicking [here](https://docs.google.com/forms/d/e/1FAIpQLSe-19X-YmBfKlfJIA-frKVPiqnaOXz94Y-UQC_9Cf2DS5bBmA/viewform).
 
 If you use this database in your research or analysis, kindly cite it as follows:
 
