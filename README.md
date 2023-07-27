@@ -223,11 +223,17 @@ X_1_high, y_1_high = load_dataset(folder_path, dataset1_high, info_dict, normali
 # Dataset Sources and Attribution
 The database was collected from the Psychology department of the University of Cyprus.
 
-The database will be publicly available upon request from the Cyprus Institute. 
+The database will be publicly available upon request from the Cyprus Institute. You can fill the following form to request the data by clicking [here](https://docs.google.com/forms/d/e/1FAIpQLSe-19X-YmBfKlfJIA-frKVPiqnaOXz94Y-UQC_9Cf2DS5bBmA/viewform)
 
 If you use this database in your research or analysis, kindly cite it as follows:
 
-_ACII 2023 publication_
+**Dataset 1:**
+
+Valeria Filippou, Nikolas Theodosiou, Mihalis Nicolaou, Elena Constantinou, Georgia Panayiotou, and Marios Theodorou. 2022. A Wavelet-based Approach for Multimodal Prediction of Alexithymia from Physiological Signals. In Companion Publication of the 2022 International Conference on Multimodal Interaction (ICMI '22 Companion). Association for Computing Machinery, New York, NY, USA, 177–184. https://doi.org/10.1145/3536220.3558076
+
+**Dataset 1 and 2:**
+
+Valeria Filippou, Nikolas Theodosiou, Mihalis Nicolaou, and Georgia Panayiotou. 2023. Multimodal Prediction of Alexithimia from Physiological and Audio Signals.
 
 # License
 This dataset is provided under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. By using this dataset, you agree to the terms and conditions specified in the license.
