@@ -233,7 +233,7 @@ Valeria Filippou, Nikolas Theodosiou, Mihalis Nicolaou, Elena Constantinou, Geor
 
 **Dataset 1 and 2:**
 
-Valeria Filippou, Nikolas Theodosiou, Mihalis Nicolaou, and Georgia Panayiotou. 2023. Multimodal Prediction of Alexithimia from Physiological and Audio Signals.
+Valeria Filippou, Mihalis A Nicolaou, Nikolas Theodosiou, Georgia Panayiotou, Elena Constantinou, Marios Theodorou and Panteli Maria. 2023. Multimodal Prediction of Alexithymia from Physiological and Audio Signals. International Conference on Affective Computing & Intelligent Interaction
 
 # License
 This dataset is provided under the Creative Commons Attribution 4.0 International (CC BY 4.0) license. By using this dataset, you agree to the terms and conditions specified in the license.
